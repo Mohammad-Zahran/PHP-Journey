@@ -49,36 +49,29 @@ function arrange($head) {
             return $head;
         }
 
-        // Set the first found vowel as the new head
         $latestVowel = $newHead = $curr->next;
         $curr->next = $curr->next->next;
         $latestVowel->next = $head;
     }
 
-    // Traverse the list, rearranging nodes as needed
     while ($curr != null && $curr->next != null) {
         if (isVowel($curr->next->data)) {
             if ($curr === $latestVowel) {
-                // If the next vowel is immediately after the latest vowel
                 $latestVowel = $curr = $curr->next;
             } else {
-                // Relink the vowel to appear directly after the latest vowel
+
                 $temp = $latestVowel->next;
 
-                // Move the new vowel node
                 $latestVowel->next = $curr->next;
 
-                // Advance the latest vowel pointer
                 $latestVowel = $latestVowel->next;
 
-                // Remove the vowel from its previous position
                 $curr->next = $curr->next->next;
 
-                // Re-link the chain of consonants
                 $latestVowel->next = $temp;
             }
         } else {
-            // If not a vowel, just advance the pointer
+
             $curr = $curr->next;
         }
     }
